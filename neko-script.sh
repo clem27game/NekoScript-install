@@ -8,11 +8,12 @@ BIN_DIR="$NEKO_LIB_DIR/bin"
 
 # Créer les répertoires nécessaires
 mkdir -p "$INSTALL_DIR" "$BIN_DIR"
+mkdir -p "$NEKO_LIB_DIR/libs" "$NEKO_LIB_DIR/published_libs"
 
 # Ajouter le bin au PATH
 export PATH="$INSTALL_DIR:$PATH"
 
-# Fonction pour ajouter au PATH
+# Fonction pour ajouter au PATH si ce n'est pas déjà fait
 add_to_path() {
     for rc_file in "$HOME/.bashrc" "$HOME/.zshrc" "$HOME/.profile"; do
         if [ -f "$rc_file" ]; then
@@ -25,8 +26,6 @@ add_to_path() {
 
 if [ "$1" = "télécharger" ]; then
     echo "Installation de NekoScript..."
-    
-    mkdir -p "$NEKO_LIB_DIR/libs" "$NEKO_LIB_DIR/published_libs"
     
     cp "$SCRIPT_DIR/main.cpp" "$NEKO_LIB_DIR/bin/"
     cp "$SCRIPT_DIR/package_manager.cpp" "$NEKO_LIB_DIR/bin/"

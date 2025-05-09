@@ -29,11 +29,25 @@ bool is_custom_function(const std::string& line) {
     return false;
 }
 
+#include <cstdlib>
+
 void execute_custom_function(const std::string& line) {
     for (const auto& [name, code] : custom_functions) {
         if (line.find(name + "()") != std::string::npos) {
             std::cout << "[Exécution de la fonction personnalisée] " << name << std::endl;
-            std::cout << code << std::endl;
+            if (code.find("javascript:") == 0) {
+                // Code JavaScript
+                std::string js_code = code.substr(11);
+                std::string temp_file = "/tmp/temp.js";
+                std::ofstream js_file(temp_file);
+                js_file << js_code;
+                js_file.close();
+                std::system(("node " + temp_file).c_str());
+                std::remove(temp_file.c_str());
+            } else {
+                // Code nekoScript standard
+                std::cout << code << std::endl;
+            }
         }
     }
 }

@@ -7,8 +7,15 @@ ARG=$2
 case $COMMAND in
   "télécharger")
     echo "Téléchargement de nekoScript..."
-    mkdir -p nekoScript
-    git clone https://github.com/tonRepo/nekoScript.git nekoScript
+    mkdir -p ~/.neko-script
+    mkdir -p ~/.neko-script/bin
+    mkdir -p ~/.neko-script/libs
+    cp main.cpp ~/.neko-script/bin/
+    cp package_manager.cpp ~/.neko-script/bin/
+    g++ ~/.neko-script/bin/main.cpp -o ~/.neko-script/bin/neko-script
+    echo 'export PATH="$PATH:$HOME/.neko-script/bin"' >> ~/.bashrc
+    source ~/.bashrc
+    echo "nekoScript installé avec succès!"
     ;;
   "run")
     if [ -z "$ARG" ]; then

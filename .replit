@@ -4,3 +4,22 @@ entrypoint = "README.md"
 [nix]
 channel = "stable-24_05"
 packages = ["cowsay"]
+
+[workflows]
+runButton = "Distribution"
+
+[[workflows.workflow]]
+name = "Distribution"
+author = 42390913
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install express"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node install.js"
+
+[deployment]
+run = ["sh", "-c", "node install.js"]

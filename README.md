@@ -1,37 +1,12 @@
+# NekoScript
 
-# Guide d'Installation de NekoScript
+## Installation Simple
 
-## Prérequis
-- Un compte Replit
-- Un terminal Linux/Unix
+Une seule commande pour installer NekoScript :
 
-## Installation
-
-1. **Cloner le projet**
-   - Fork ce projet sur Replit
-   - Ouvrez le terminal dans Replit
-
-2. **Rendre le script exécutable**
-   ```bash
-   chmod +x neko-script.sh
-   ```
-
-3. **Installer NekoScript**
-   ```bash
-   ./neko-script.sh télécharger
-   ```
-   Cette commande va :
-   - Installer les dépendances nécessaires (Node.js, G++)
-   - Créer les dossiers requis
-   - Compiler le code source
-   - Configurer l'environnement
-
-4. **Vérifier l'installation**
-   ```bash
-   source ~/.bashrc
-   neko-script
-   ```
-   Vous devriez voir la liste des commandes disponibles.
+```bash
+curl -s https://neko-script.your-repl.repl.co/download | bash
+```
 
 ## Utilisation
 
@@ -48,17 +23,6 @@ neko-script publish mon_package.neko
 ### Importer une librairie
 ```bash
 neko-script librairie nom_librairie.neko
-```
-
-## Structure d'un package
-```neko
-package:
-  name: "mon-package"
-  version: "1.0.0"
-  description: "Description"
-
-fonction maFonction:
-  # Code NekoScript
 ```
 
 ## Support

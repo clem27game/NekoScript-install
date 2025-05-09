@@ -1,37 +1,42 @@
+
 #!/bin/bash
 
-COMMAND=$1
 INSTALL_DIR="$HOME/.neko-script"
 
-function install_neko() {
-    echo "Installation de nekoScript..."
-
-    # Installation des dépendances
-    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-    sudo apt-get install -y nodejs g++
-
-    # Création des dossiers
+function download_and_install() {
+    echo "Installation de NekoScript..."
+    
+    # Créer les dossiers
     mkdir -p "$INSTALL_DIR/bin" "$INSTALL_DIR/libs" "$INSTALL_DIR/published_libs"
+    
+    # Installer les dépendances
+    if ! command -v nodejs &> /dev/null; then
+        curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+    fi
+    
+    if ! command -v g++ &> /dev/null; then
+        sudo apt-get install -y g++
+    fi
 
-    # Téléchargement des fichiers sources depuis GitHub
-    curl -o "$INSTALL_DIR/bin/main.cpp" https://raw.githubusercontent.com/clem27game/NekoScript-install/main/main.cpp
-    curl -o "$INSTALL_DIR/bin/package_manager.cpp" https://raw.githubusercontent.com/clem27game/NekoScript-install/main/package_manager.cpp
-
-    # Compilation
+    # Copier les fichiers du projet
+    cp main.cpp "$INSTALL_DIR/bin/"
+    cp package_manager.cpp "$INSTALL_DIR/bin/"
+    
+    # Compiler
     cd "$INSTALL_DIR/bin"
     g++ main.cpp -o neko-script
-
-    # Ajout au PATH
+    
+    # Ajouter au PATH
     echo 'export PATH="$PATH:$HOME/.neko-script/bin"' >> "$HOME/.bashrc"
     source "$HOME/.bashrc"
-
-    echo "nekoScript installé avec succès!"
-    echo "Redémarrez votre terminal ou exécutez 'source ~/.bashrc'"
+    
+    echo "NekoScript installé avec succès!"
 }
 
-case $COMMAND in
+case $1 in
     "télécharger")
-        install_neko
+        download_and_install
         ;;
     "run")
         "$INSTALL_DIR/bin/neko-script" "$2"
@@ -47,7 +52,7 @@ case $COMMAND in
     *)
         echo "Usage: neko-script <commande>"
         echo "Commandes:"
-        echo "  télécharger - Installer nekoScript"
+        echo "  télécharger - Installer NekoScript"
         echo "  run         - Exécuter un fichier .neko"
         echo "  publish     - Publier un package"
         echo "  librairie   - Importer un package"

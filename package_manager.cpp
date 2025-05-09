@@ -31,6 +31,10 @@ bool is_custom_function(const std::string& line) {
 
 #include <cstdlib>
 
+void install_discord_deps() {
+    std::system("npm install discord.js");
+}
+
 void execute_custom_function(const std::string& line) {
     for (const auto& [name, code] : custom_functions) {
         if (line.find(name + "()") != std::string::npos) {

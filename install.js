@@ -2,18 +2,20 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
-const path = require('path');
 
-app.get('/download', (req, res) => {
-  const files = {
-    'neko-script.sh': fs.readFileSync('neko-script.sh'),
-    'main.cpp': fs.readFileSync('main.cpp'),
-    'package_manager.cpp': fs.readFileSync('package_manager.cpp')
-  };
-  
-  res.json(files);
+app.get('/install.sh', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
+  res.send(`#!/bin/bash
+curl -s -o neko-script.sh https://nekoscript.replit.app/neko-script.sh
+chmod +x neko-script.sh
+./neko-script.sh télécharger`);
 });
 
-app.listen(3000, '0.0.0.0', () => {
-  console.log('Serveur de distribution démarré sur le port 3000');
+app.get('/neko-script.sh', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
+  res.sendFile(__dirname + '/neko-script.sh');
+});
+
+app.listen(5000, '0.0.0.0', () => {
+  console.log('Serveur de distribution démarré sur le port 5000');
 });

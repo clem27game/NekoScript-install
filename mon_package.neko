@@ -1,0 +1,28 @@
+
+package:
+  name: "mon-package"
+  version: "1.0.0"
+  description: "Mon premier package nekoScript"
+
+# Fonction simple en nekoScript
+fonction maFonctionNeko:
+  neko = "Hello from my package!"
+
+# Fonction utilisant JavaScript
+fonction maFonctionJS:javascript:
+function maFonction() {
+    return "Résultat depuis JavaScript!";
+}
+return maFonction;
+
+# Fonction avec paramètres
+fonction calculer:javascript:
+function calculer(a, b, operation) {
+    switch(operation) {
+        case 'plus': return a + b;
+        case 'moins': return a - b;
+        case 'multiplier': return a * b;
+        case 'diviser': return a / b;
+    }
+}
+return calculer;

@@ -1,0 +1,26 @@
+
+package:
+  name: "discord-bot"
+  version: "1.0.0"
+  description: "Package pour créer des bots Discord"
+
+fonction createBot:javascript:
+const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ 
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
+    ] 
+});
+return client;
+
+fonction sendMessage:javascript:
+function sendMessage(channel, message) {
+    channel.send(message);
+}
+
+fonction onMessage:javascript:
+function onMessage(client, callback) {
+    client.on('messageCreate', callback);
+}

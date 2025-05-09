@@ -1,0 +1,12 @@
+
+importer discord-bot
+
+bot = createBot()
+
+onMessage(bot, function(msg) {
+    if (msg.content === "!hello") {
+        sendMessage(msg.channel, "Bonjour !")
+    }
+})
+
+bot.login("VOTRE_TOKEN_DISCORD")

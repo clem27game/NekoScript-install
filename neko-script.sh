@@ -2,7 +2,7 @@
 #!/bin/bash
 
 INSTALL_DIR="$HOME/.neko-script"
-GITHUB_RAW_URL="https://raw.githubusercontent.com/nekoscript38/NekoScript-install/main"
+GITHUB_RAW_URL="https://raw.githubusercontent.com/clem27game/NekoScript-install/main"
 
 function download_and_install() {
     echo "Installation de NekoScript..."

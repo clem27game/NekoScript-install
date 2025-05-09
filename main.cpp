@@ -66,7 +66,12 @@ void run_script(const std::string& path) {
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        std::cerr << "Utilisation: neko-script <fichier.neko>" << std::endl;
+        std::cout << "Usage: neko-script <commande>" << std::endl;
+        std::cout << "Commandes:" << std::endl;
+        std::cout << "  télécharger - Installer NekoScript" << std::endl;
+        std::cout << "  run         - Exécuter un fichier .neko" << std::endl;
+        std::cout << "  publish     - Publier un package" << std::endl;
+        std::cout << "  librairie   - Importer un package" << std::endl;
         return 1;
     }
     run_script(argv[1]);

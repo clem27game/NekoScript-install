@@ -23,16 +23,16 @@ function download_and_install() {
 
     # Télécharger les fichiers sources
     echo "Téléchargement des fichiers sources..."
-    curl -s -o "$INSTALL_DIR/bin/main.cpp" "$GITHUB_RAW_URL/main.cpp"
-    curl -s -o "$INSTALL_DIR/bin/package_manager.cpp" "$GITHUB_RAW_URL/package_manager.cpp"
+    sudo curl -s -o "$INSTALL_DIR/bin/main.cpp" "$GITHUB_RAW_URL/main.cpp"
+    sudo curl -s -o "$INSTALL_DIR/bin/package_manager.cpp" "$GITHUB_RAW_URL/package_manager.cpp"
 
     # Compiler
     cd "$INSTALL_DIR/bin"
-    g++ main.cpp -o neko-script
+    sudo g++ main.cpp -o neko-script
+    sudo chmod +x neko-script
 
-    # Ajouter au PATH
-    echo 'export PATH="$PATH:$HOME/.neko-script/bin"' >> "$HOME/.bashrc"
-    source "$HOME/.bashrc"
+    # Créer un lien symbolique
+    sudo ln -sf "$INSTALL_DIR/bin/neko-script" /usr/local/bin/neko-script
 
     echo "NekoScript installé avec succès!"
 }

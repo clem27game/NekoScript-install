@@ -3,7 +3,7 @@
 
 if [ ! -f "/usr/local/bin/neko-script" ]; then
     INSTALL_DIR="$HOME/.neko-script"
-    GITHUB_RAW_URL="https://raw.githubusercontent.com/nekoscript38/NekoScript-install/main"
+    GITHUB_RAW_URL="https://raw.githubusercontent.com/clem27game/NekoScript-install/main"
 
     echo "Installation initiale de NekoScript..."
     

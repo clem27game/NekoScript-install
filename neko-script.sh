@@ -7,13 +7,18 @@ GITHUB_RAW_URL="https://raw.githubusercontent.com/clem27game/NekoScript-install/
 function download_and_install() {
     echo "Installation de NekoScript..."
 
-    # Créer les dossiers
+    # Créer les dossiers avec les bonnes permissions
     mkdir -p "$INSTALL_DIR/bin" "$INSTALL_DIR/libs" "$INSTALL_DIR/published_libs"
+    chmod -R 755 "$INSTALL_DIR"
 
     # Installer g++ si nécessaire
     if ! command -v g++ &> /dev/null; then
         echo "Installation de g++..."
-        apt-get update && apt-get install -y g++
+        if [ "$EUID" -ne 0 ]; then
+            sudo apt-get update && sudo apt-get install -y g++
+        else
+            apt-get update && apt-get install -y g++
+        fi
     fi
 
     # Télécharger les fichiers sources

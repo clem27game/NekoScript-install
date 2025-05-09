@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Définir les chemins d'installation
@@ -7,11 +6,8 @@ INSTALL_DIR="$HOME/.local/bin"
 NEKO_LIB_DIR="$HOME/.neko-script"
 BIN_DIR="$NEKO_LIB_DIR/bin"
 
-# Créer les répertoires s'ils n'existent pas
-mkdir -p "$INSTALL_DIR"
-mkdir -p "$BIN_DIR"
-mkdir -p "$HOME/.neko-script/libs"
-mkdir -p "$HOME/.neko-script/published_libs"
+# Créer les répertoires nécessaires
+mkdir -p "$INSTALL_DIR" "$BIN_DIR"
 
 # Ajouter le bin au PATH
 export PATH="$INSTALL_DIR:$PATH"
@@ -25,46 +21,25 @@ add_to_path() {
             fi
         fi
     done
-    export PATH="$HOME/.local/bin:$PATH"
 }
 
 if [ "$1" = "télécharger" ]; then
     echo "Installation de NekoScript..."
-
-    # Créer les dossiers nécessaires
-    mkdir -p "$INSTALL_DIR" "$NEKO_LIB_DIR/bin" "$NEKO_LIB_DIR/libs" "$NEKO_LIB_DIR/published_libs"
-    chmod -R 755 "$NEKO_LIB_DIR"
-
-    # Copier les fichiers nécessaires
+    
+    mkdir -p "$NEKO_LIB_DIR/libs" "$NEKO_LIB_DIR/published_libs"
+    
     cp "$SCRIPT_DIR/main.cpp" "$NEKO_LIB_DIR/bin/"
     cp "$SCRIPT_DIR/package_manager.cpp" "$NEKO_LIB_DIR/bin/"
 
     # Compiler le programme
-    cd "$BIN_DIR"
-    g++ "$SCRIPT_DIR/main.cpp" -o "$BIN_DIR/neko-script-bin"
+    g++ "$NEKO_LIB_DIR/bin/main.cpp" -o "$BIN_DIR/neko-script-bin" || { echo "Erreur de compilation"; exit 1; }
     chmod +x "$BIN_DIR/neko-script-bin"
     
     # Créer un lien symbolique
     ln -sf "$BIN_DIR/neko-script-bin" "$INSTALL_DIR/neko-script"
 
-    # Créer le script wrapper
-    cat > "$INSTALL_DIR/neko-script" << 'EOF'
-#!/bin/bash
-NEKO_LIB_DIR="$HOME/.neko-script"
-case $1 in
-    "télécharger") echo "NekoScript est déjà installé!" ;;
-    "run") "$NEKO_LIB_DIR/bin/neko-script-bin" "$2" ;;
-    "publish") cp "$2" "$NEKO_LIB_DIR/published_libs/" && echo "Package publié: $2" ;;
-    "librairie") cp "$NEKO_LIB_DIR/published_libs/$2" "$NEKO_LIB_DIR/libs/" && echo "Package importé: $2" ;;
-    *) "$NEKO_LIB_DIR/bin/neko-script-bin" "$@" ;;
-esac
-EOF
-
-    chmod +x "$INSTALL_DIR/neko-script"
-
     # Ajouter au PATH
     add_to_path
-
     echo "NekoScript installé avec succès!"
     echo "Redémarrez votre terminal ou exécutez 'source ~/.bashrc' pour utiliser neko-script"
     exit 0

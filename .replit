@@ -1,5 +1,6 @@
 run = "cowsay Configure me!"
 entrypoint = "README.md"
+modules = ["nodejs-20"]
 
 [nix]
 channel = "stable-24_05"
@@ -23,3 +24,7 @@ args = "node install.js"
 
 [deployment]
 run = ["sh", "-c", "node install.js"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80

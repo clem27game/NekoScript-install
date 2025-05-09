@@ -5,6 +5,16 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 INSTALL_DIR="$HOME/.local/bin"
 NEKO_LIB_DIR="$HOME/.neko-script"
+BIN_DIR="$NEKO_LIB_DIR/bin"
+
+# Créer les répertoires s'ils n'existent pas
+mkdir -p "$INSTALL_DIR"
+mkdir -p "$BIN_DIR"
+mkdir -p "$HOME/.neko-script/libs"
+mkdir -p "$HOME/.neko-script/published_libs"
+
+# Ajouter le bin au PATH
+export PATH="$INSTALL_DIR:$PATH"
 
 # Fonction pour ajouter au PATH
 add_to_path() {
@@ -30,9 +40,12 @@ if [ "$1" = "télécharger" ]; then
     cp "$SCRIPT_DIR/package_manager.cpp" "$NEKO_LIB_DIR/bin/"
 
     # Compiler le programme
-    cd "$NEKO_LIB_DIR/bin"
-    g++ main.cpp -o neko-script-bin
-    chmod +x neko-script-bin
+    cd "$BIN_DIR"
+    g++ "$SCRIPT_DIR/main.cpp" -o "$BIN_DIR/neko-script-bin"
+    chmod +x "$BIN_DIR/neko-script-bin"
+    
+    # Créer un lien symbolique
+    ln -sf "$BIN_DIR/neko-script-bin" "$INSTALL_DIR/neko-script"
 
     # Créer le script wrapper
     cat > "$INSTALL_DIR/neko-script" << 'EOF'

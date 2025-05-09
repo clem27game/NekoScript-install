@@ -1,3 +1,4 @@
+
 # NekoScript
 
 ## Installation Simple
@@ -5,7 +6,7 @@
 Une seule commande pour installer NekoScript :
 
 ```bash
-curl -s https://neko-script.your-repl.repl.co/download | bash
+curl -s https://raw.githubusercontent.com/replit/@YourUsername/NekoScript/main/neko-script.sh | bash
 ```
 
 ## Utilisation

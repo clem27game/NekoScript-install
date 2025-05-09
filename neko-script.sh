@@ -1,36 +1,32 @@
-
 #!/bin/bash
 
 INSTALL_DIR="$HOME/.neko-script"
+REPLIT_FILES_URL="https://raw.githubusercontent.com/replit/@YourUsername/NekoScript/main"
 
 function download_and_install() {
     echo "Installation de NekoScript..."
-    
+
     # Créer les dossiers
     mkdir -p "$INSTALL_DIR/bin" "$INSTALL_DIR/libs" "$INSTALL_DIR/published_libs"
-    
-    # Installer les dépendances
-    if ! command -v nodejs &> /dev/null; then
-        curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-        sudo apt-get install -y nodejs
-    fi
-    
+
+    # Installer g++ si nécessaire
     if ! command -v g++ &> /dev/null; then
-        sudo apt-get install -y g++
+        sudo apt-get update && sudo apt-get install -y g++
     fi
 
-    # Copier les fichiers du projet
-    cp main.cpp "$INSTALL_DIR/bin/"
-    cp package_manager.cpp "$INSTALL_DIR/bin/"
-    
+    # Télécharger les fichiers sources
+    echo "Téléchargement des fichiers sources..."
+    curl -s -o "$INSTALL_DIR/bin/main.cpp" "$REPLIT_FILES_URL/main.cpp"
+    curl -s -o "$INSTALL_DIR/bin/package_manager.cpp" "$REPLIT_FILES_URL/package_manager.cpp"
+
     # Compiler
     cd "$INSTALL_DIR/bin"
     g++ main.cpp -o neko-script
-    
+
     # Ajouter au PATH
     echo 'export PATH="$PATH:$HOME/.neko-script/bin"' >> "$HOME/.bashrc"
     source "$HOME/.bashrc"
-    
+
     echo "NekoScript installé avec succès!"
 }
 

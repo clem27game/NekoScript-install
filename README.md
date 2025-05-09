@@ -3,10 +3,10 @@
 
 ## Installation Simple
 
-Pour installer NekoScript, utilisez simplement cette commande :
+Pour installer NekoScript, utilisez cette commande :
 
 ```bash
-curl -s https://raw.githubusercontent.com/nekoscript38/NekoScript-install/main/neko-script.sh -o /usr/local/bin/neko-script && chmod +x /usr/local/bin/neko-script && neko-script télécharger
+sudo curl -s https://raw.githubusercontent.com/nekoscript38/NekoScript-install/main/neko-script.sh -o /usr/local/bin/neko-script && sudo chmod +x /usr/local/bin/neko-script && neko-script télécharger
 ```
 
 ## Utilisation

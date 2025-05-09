@@ -27,6 +27,7 @@ add_to_path() {
 if [ "$1" = "télécharger" ]; then
     echo "Installation de NekoScript..."
     
+    # Copier les fichiers requis dans le répertoire d'installation
     cp "$SCRIPT_DIR/main.cpp" "$NEKO_LIB_DIR/bin/"
     cp "$SCRIPT_DIR/package_manager.cpp" "$NEKO_LIB_DIR/bin/"
 

@@ -7,6 +7,15 @@
 namespace fs = std::filesystem;
 std::map<std::string, std::string> custom_functions;
 
+struct Package {
+    std::string name;
+    std::string version;
+    std::string description;
+    std::map<std::string, std::string> functions;
+};
+
+std::map<std::string, Package> installed_packages;
+
 void load_packages(const std::string& directory = "libs") {
     if (!fs::exists(directory)) return;
     for (const auto& entry : fs::directory_iterator(directory)) {

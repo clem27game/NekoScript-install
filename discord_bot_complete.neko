@@ -1,0 +1,49 @@
+
+package:
+  name: "discord-bot-complete"
+  version: "1.0.0"
+  description: "Package complet pour créer des bots Discord"
+
+fonction createBot:javascript:
+const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const client = new Client({ 
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMembers
+    ] 
+});
+return client;
+
+fonction createEmbed:javascript:
+function createEmbed(title, description, color = '#0099ff') {
+    return new EmbedBuilder()
+        .setTitle(title)
+        .setDescription(description)
+        .setColor(color)
+        .setTimestamp();
+}
+
+fonction sendEmbed:javascript:
+function sendEmbed(channel, embed) {
+    channel.send({ embeds: [embed] });
+}
+
+fonction createCommand:javascript:
+function createCommand(name, description, execute) {
+    client.on('messageCreate', message => {
+        if (message.content.startsWith('!' + name)) {
+            execute(message);
+        }
+    });
+}
+
+fonction handleReactions:javascript:
+function handleReactions(messageId, callback) {
+    client.on('messageReactionAdd', (reaction, user) => {
+        if (reaction.message.id === messageId) {
+            callback(reaction, user);
+        }
+    });
+}

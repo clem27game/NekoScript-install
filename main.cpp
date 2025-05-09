@@ -35,10 +35,20 @@ void interpret_line(const std::string& line) {
         iss >> a >> op >> b;
 
         int result = 0;
-        if (op == "plus") result = a + b;
-        else if (op == "moins") result = a - b;
-        else if (op == "diviser") result = a / b;
-        else if (op == "multiplier") result = a * b;
+        if (line.find("compteneko") == 0) {
+            std::string expr = line.substr(11);
+            std::istringstream iss(expr);
+            int a, b;
+            std::string op;
+            iss >> a >> op >> b;
+            
+            if (op == "plus") result = a + b;
+            else if (op == "moins") result = a - b;
+            else if (op == "diviser") result = a / b;
+            else if (op == "multiplier") result = a * b;
+            
+            std::cout << "Résultat: " << result << std::endl;
+        }
 
         variables[var] = result;
         std::cout << result << std::endl;

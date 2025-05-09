@@ -1,0 +1,27 @@
+
+importer discord-bot-complete
+
+bot = createBot()
+
+# Création d'une commande !help
+createCommand('help', 'Affiche l'aide', function(message) {
+    embed = createEmbed('Commandes disponibles', 
+        '!help - Affiche ce message\n!info - Informations sur le serveur')
+    sendEmbed(message.channel, embed)
+})
+
+# Création d'une commande !info
+createCommand('info', 'Informations serveur', function(message) {
+    embed = createEmbed('Informations du serveur',
+        'Membres: ' + message.guild.memberCount)
+    sendEmbed(message.channel, embed)
+})
+
+# Gestion des réactions
+handleReactions('messageId', function(reaction, user) {
+    if (reaction.emoji.name === '👍') {
+        sendMessage(reaction.message.channel, user.username + ' a aimé le message!')
+    }
+})
+
+bot.login('VOTRE_TOKEN_DISCORD')

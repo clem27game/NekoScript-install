@@ -1,7 +1,7 @@
 #!/bin/bash
 
 INSTALL_DIR="$HOME/.neko-script"
-REPLIT_FILES_URL="https://raw.githubusercontent.com/replit/@YourUsername/NekoScript/main"
+REPLIT_FILES_URL="https://raw.githubusercontent.com/replit/@nekoscript38/NekoScript/main"
 
 function download_and_install() {
     echo "Installation de NekoScript..."

@@ -12,7 +12,8 @@ function download_and_install() {
 
     # Installer g++ si nécessaire
     if ! command -v g++ &> /dev/null; then
-        sudo apt-get update && sudo apt-get install -y g++
+        echo "Installation de g++..."
+        apt-get update && apt-get install -y g++
     fi
 
     # Télécharger les fichiers sources

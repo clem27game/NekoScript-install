@@ -1,0 +1,23 @@
+
+package:
+  name: "utils"
+  version: "1.0.0"
+  description: "Fonctions utilitaires pour nekoScript"
+
+fonction formatDate:javascript:
+function formatDate(date) {
+    return new Date(date).toLocaleDateString();
+}
+return formatDate;
+
+fonction randomNumber:javascript:
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+return getRandomNumber;
+
+fonction capitalize:javascript:
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+return capitalize;

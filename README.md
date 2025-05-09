@@ -3,13 +3,10 @@
 
 ## Installation Simple
 
-Assurez-vous d'avoir g++ installé avant de continuer.
-Pour installer g++, exécutez : `apt-get install -y g++`
-
-Ensuite, installez NekoScript avec cette commande :
+Pour installer NekoScript, utilisez simplement cette commande :
 
 ```bash
-curl -s https://raw.githubusercontent.com/nekoscript38/NekoScript-install/main/neko-script.sh -o neko-script.sh && chmod +x neko-script.sh && ./neko-script.sh télécharger
+curl -s https://raw.githubusercontent.com/nekoscript38/NekoScript-install/main/neko-script.sh -o /usr/local/bin/neko-script && chmod +x /usr/local/bin/neko-script && neko-script télécharger
 ```
 
 ## Utilisation

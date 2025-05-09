@@ -1,12 +1,12 @@
 
 #!/bin/bash
 
-INSTALL_DIR="$HOME/.neko-script"
-GITHUB_RAW_URL="https://raw.githubusercontent.com/clem27game/NekoScript-install/main"
+if [ ! -f "/usr/local/bin/neko-script" ]; then
+    INSTALL_DIR="$HOME/.neko-script"
+    GITHUB_RAW_URL="https://raw.githubusercontent.com/nekoscript38/NekoScript-install/main"
 
-function download_and_install() {
-    echo "Installation de NekoScript..."
-
+    echo "Installation initiale de NekoScript..."
+    
     # Créer les dossiers avec les bonnes permissions
     mkdir -p "$INSTALL_DIR/bin" "$INSTALL_DIR/libs" "$INSTALL_DIR/published_libs"
     chmod -R 755 "$INSTALL_DIR"
@@ -35,21 +35,34 @@ function download_and_install() {
     sudo ln -sf "$INSTALL_DIR/bin/neko-script" /usr/local/bin/neko-script
 
     echo "NekoScript installé avec succès!"
-}
+    exit 0
+fi
 
 case $1 in
     "télécharger")
-        download_and_install
+        echo "NekoScript est déjà installé!"
         ;;
     "run")
-        "$INSTALL_DIR/bin/neko-script" "$2"
+        if [ -z "$2" ]; then
+            echo "Usage: neko-script run <fichier.neko>"
+            exit 1
+        fi
+        "$HOME/.neko-script/bin/neko-script" "$2"
         ;;
     "publish")
-        cp "$2" "$INSTALL_DIR/published_libs/"
+        if [ -z "$2" ]; then
+            echo "Usage: neko-script publish <package.neko>"
+            exit 1
+        fi
+        cp "$2" "$HOME/.neko-script/published_libs/"
         echo "Package publié: $2"
         ;;
     "librairie")
-        cp "$INSTALL_DIR/published_libs/$2" "$INSTALL_DIR/libs/"
+        if [ -z "$2" ]; then
+            echo "Usage: neko-script librairie <librairie.neko>"
+            exit 1
+        fi
+        cp "$HOME/.neko-script/published_libs/$2" "$HOME/.neko-script/libs/"
         echo "Package importé: $2"
         ;;
     *)
